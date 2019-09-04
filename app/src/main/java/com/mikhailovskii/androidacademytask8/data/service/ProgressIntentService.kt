@@ -3,6 +3,10 @@ package com.mikhailovskii.androidacademytask8.data.service
 import android.app.IntentService
 import android.content.Intent
 import android.util.Log
+import com.mikhailovskii.androidacademytask8.data.entities.Event
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+
 
 class ProgressIntentService : IntentService("progress_intent_service") {
 
@@ -11,11 +15,7 @@ class ProgressIntentService : IntentService("progress_intent_service") {
         try {
             for (i in 0..100) {
                 Thread.sleep(10)
-                val responseIntent = Intent()
-                responseIntent.action = INTENT_ACTION
-                responseIntent.addCategory(Intent.CATEGORY_DEFAULT)
-                responseIntent.putExtra(EXTRA_KEY_OUT, i)
-                sendBroadcast(responseIntent)
+                EventBus.getDefault().post(Event(i))
             }
         } catch (e: InterruptedException) {
             e.stackTrace
@@ -25,7 +25,22 @@ class ProgressIntentService : IntentService("progress_intent_service") {
 
     }
 
-    companion object{
+    @Subscribe
+    public fun onEvent(event: Event){
+        
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
+
+    companion object {
         const val INTENT_ACTION = "com.mikhailovskii.androidacademytask8.data.service.PROGRESS"
         const val EXTRA_KEY_OUT = "EXTRA_KEY_OUT"
     }
