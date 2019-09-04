@@ -18,13 +18,6 @@ class ProgressIntentService : IntentService("progress_intent_service") {
         } catch (e: InterruptedException) {
             e.stackTrace
         }
-
-
-    }
-
-    @Subscribe
-    public fun onEvent(event: Event) {
-
     }
 
     override fun onCreate() {
@@ -35,6 +28,11 @@ class ProgressIntentService : IntentService("progress_intent_service") {
     override fun onDestroy() {
         EventBus.getDefault().unregister(this)
         super.onDestroy()
+    }
+
+    @Subscribe
+    public fun onEvent(event: Event) {
+
     }
 
     companion object {

@@ -3,9 +3,11 @@ package com.mikhailovskii.androidacademytask8.ui.progress
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.mikhailovskii.androidacademytask8.R
 import com.mikhailovskii.androidacademytask8.data.entities.Event
 import com.mikhailovskii.androidacademytask8.data.service.ProgressIntentService
+import com.mikhailovskii.androidacademytask8.data.service.ProgressService
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -25,6 +27,8 @@ class ProgressActivity : AppCompatActivity() {
         }
 
         btn_service.setOnClickListener {
+            val intent = Intent(this, ProgressService::class.java)
+            startService(intent)
         }
 
     }
@@ -42,6 +46,7 @@ class ProgressActivity : AppCompatActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public fun onEvent(event: Event) {
         tv_progress.text = event.getI().toString()
+        Log.i("ProgressService", "In activity onEvent")
     }
 
 }

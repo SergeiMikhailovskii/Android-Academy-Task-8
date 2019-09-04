@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <service android:name="com.mikhailovskii.androidacademytask8.data.service.ProgressIntentService" />
+        <service android:name=".data.service.ProgressService" />
     </application>
 
 </manifest>
