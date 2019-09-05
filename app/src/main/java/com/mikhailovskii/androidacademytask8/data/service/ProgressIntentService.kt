@@ -20,23 +20,4 @@ class ProgressIntentService : IntentService("progress_intent_service") {
         }
     }
 
-    override fun onCreate() {
-        super.onCreate()
-        EventBus.getDefault().register(this)
-    }
-
-    override fun onDestroy() {
-        EventBus.getDefault().unregister(this)
-        super.onDestroy()
-    }
-
-    @Subscribe
-    public fun onEvent(event: Event) {
-
-    }
-
-    companion object {
-        const val EXTRA_KEY_OUT = "EXTRA_KEY_OUT"
-    }
-
 }
