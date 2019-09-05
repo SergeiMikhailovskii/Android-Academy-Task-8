@@ -28,7 +28,10 @@ class ProgressService : Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        mHandler?.post { startUpdatingProgress() }
+        if (!isRunning) {
+            isRunning = true
+            mHandler?.post { startUpdatingProgress() }
+        }
         return START_NOT_STICKY
     }
 
@@ -42,10 +45,15 @@ class ProgressService : Service() {
             Thread.sleep(10)
             EventBus.getDefault().post(Event(i))
         }
+        isRunning = false
     }
 
     override fun onBind(intent: Intent): IBinder? {
         return null
+    }
+
+    companion object {
+        public var isRunning: Boolean = false
     }
 
 }
