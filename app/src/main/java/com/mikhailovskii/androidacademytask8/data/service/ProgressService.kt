@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.os.IBinder
 import android.os.Process
+import android.util.Log
 import com.mikhailovskii.androidacademytask8.data.entities.Event
 import org.greenrobot.eventbus.EventBus
 

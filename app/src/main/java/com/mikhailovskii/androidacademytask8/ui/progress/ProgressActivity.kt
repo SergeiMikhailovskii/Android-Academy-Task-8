@@ -46,7 +46,6 @@ class ProgressActivity : AppCompatActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public fun onEvent(event: Event) {
         tv_progress.text = event.getI().toString()
-        Log.i("ProgressService", "In activity onEvent")
     }
 
 }
