@@ -3,9 +3,10 @@ package com.mikhailovskii.androidacademytask8.ui.progress
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import android.widget.Toast
 import com.mikhailovskii.androidacademytask8.R
-import com.mikhailovskii.androidacademytask8.data.entities.Event
+import com.mikhailovskii.androidacademytask8.data.entities.EventNumber
+import com.mikhailovskii.androidacademytask8.data.entities.ToastEvent
 import com.mikhailovskii.androidacademytask8.data.service.ProgressIntentService
 import com.mikhailovskii.androidacademytask8.data.service.ProgressService
 import kotlinx.android.synthetic.main.activity_main.*
@@ -44,8 +45,13 @@ class ProgressActivity : AppCompatActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public fun onEvent(event: Event) {
-        tv_progress.text = event.getI().toString()
+    fun onEventNumber(eventNumber: EventNumber) {
+        tv_progress.text = eventNumber.getI().toString()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEventToast(eventToast: ToastEvent){
+        Toast.makeText(this, eventToast.getMessage(), Toast.LENGTH_SHORT).show()
     }
 
 }

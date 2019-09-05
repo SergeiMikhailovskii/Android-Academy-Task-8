@@ -6,8 +6,8 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.os.IBinder
 import android.os.Process
-import android.util.Log
-import com.mikhailovskii.androidacademytask8.data.entities.Event
+import com.mikhailovskii.androidacademytask8.data.entities.EventNumber
+import com.mikhailovskii.androidacademytask8.data.entities.ToastEvent
 import org.greenrobot.eventbus.EventBus
 
 
@@ -31,6 +31,9 @@ class ProgressService : Service() {
         if (!isRunning) {
             isRunning = true
             mHandler?.post { startUpdatingProgress() }
+        } else {
+            this.stopSelf()
+            this.startUpdatingProgress()
         }
         return START_NOT_STICKY
     }
@@ -43,7 +46,7 @@ class ProgressService : Service() {
     private fun startUpdatingProgress() {
         for (i in 0..100) {
             Thread.sleep(10)
-            EventBus.getDefault().post(Event(i))
+            EventBus.getDefault().post(EventNumber(i))
         }
         isRunning = false
     }
@@ -53,7 +56,7 @@ class ProgressService : Service() {
     }
 
     companion object {
-        public var isRunning: Boolean = false
+        var isRunning: Boolean = false
     }
 
 }
